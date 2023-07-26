@@ -11,6 +11,7 @@ let newp3 = "m68.6,1l-11.1,7.8v16.6l1.1,8.2-3.3,8.6-7.8,17.1-2.2,16.8-5.5,10.1-1
 newp3 = "51.1 .5 36.9 13.6 9.8 19.3 .5 35 3.6 97.6 25.8 100.1 27 124 14.9 145 14 189.1 6.6 202.7 .5 241.3 6.6 276.3 17.4 283.1 17.4 324.9 8.9 357.7 4.5 374.4 19.1 385.8 75.3 388.7 114 382.2 118.3 367.4 108.6 355 104.2 319.8 104.2 280.7 118.3 269.6 125.3 254.8 123.3 210.8 108.6 190.5 108.6 178.2 112.1 162.6 104.2 122.1 104.2 102.8 122.4 97.6 129.1 85.3 129.1 29.6 118.3 21.6 97.8 21.6 92.8 26.4 88.6 8.7 62 .5 51.1 .5";
 
 let num;
+let scalingFactor = 1;
 let mConstraint;
 let engine;
 let render;
@@ -24,6 +25,7 @@ const mat = document.getElementById("mat");
 Matter.use(
   // 'matter-attractors' // PLUGIN_NAME
 );
+
 function preload() {
   illu = loadImage('illustration.png');
   illu2 = loadImage('illu-2.png');
@@ -33,8 +35,19 @@ function preload() {
   illu4 = loadImage("newp7.png");
 }
 
+function constrain(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function scaleCoordinates(coordinates, windowWidth) {
+   // Adjust 500 to the original width of newP
+  const scaledCoordinates = coordinates.split(' ').map((coord) => parseFloat(coord) * scalingFactor);
+  return scaledCoordinates.join(' ');
+}
+
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
+  scalingFactor = constrain(windowWidth / 1100, 0.5, 1)
   pixelDensity(1);
   frameRate(30);
   // create an engine
@@ -60,12 +73,16 @@ function setup() {
     engine: engine
   });
 
-  b1 = new Body(Math.random() * width, Math.random() * height, newP, illu2);
-  b2 = new Body(Math.random() * width, Math.random() * height, newp2, illu3);
-  b3 = new Body(Math.random() * width, Math.random() * height, newp3, illu4);
-  b4 = new Body(Math.random() * width, Math.random() * height, newP, illu2);
-  b5 = new Body(Math.random() * width, Math.random() * height, newp2, illu3);
-  b6 = new Body(Math.random() * width, Math.random() * height, newp3, illu4);
+  scaledNewP = scaleCoordinates(newP, windowWidth);
+  scaledNewP2 = scaleCoordinates(newp2, windowWidth);
+  scaledNewP3 = scaleCoordinates(newp3, windowWidth);
+
+  b1 = new Body(Math.random() * width, Math.random() * height, scaledNewP, illu2);
+  b2 = new Body(Math.random() * width, Math.random() * height, scaledNewP2, illu3);
+  b3 = new Body(Math.random() * width, Math.random() * height, scaledNewP3, illu4);
+  b4 = new Body(Math.random() * width, Math.random() * height, scaledNewP, illu2);
+  b5 = new Body(Math.random() * width, Math.random() * height, scaledNewP2, illu3);
+  b6 = new Body(Math.random() * width, Math.random() * height, scaledNewP3, illu4);
 
 
 

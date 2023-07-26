@@ -34,49 +34,51 @@ function preload() {
 }
 
 function setup() {
-    let canvas = createCanvas(windowWidth, windowHeight);
-    // create an engine
-    engine = Engine.create();
-    world = engine.world;
-    num = 1;
-    world.gravity.x = Math.sin(num / 1000)/100;
-    world.gravity.y = Math.cos(num / 1000)/100;
-    // Engine.run is deprecated
-    ground = new Boundary(width/2, height+50, width, 100);
-    wall1 = new Boundary(-50, height/2, 100, height);
-    wall2 = new Boundary(width+50, height/2, 100, height);
-    ceil = new Boundary(width/2, 0-50, width, 100);
-  
-  
-    Composite.add(world, ground);
-    Composite.add(world, wall1);
-    Composite.add(world, wall2);
-    Composite.add(world, ceil);
-  
-    render = Render.create({
-      element: mat,
-      engine: engine
-    });
-  
-    b1 = new Body(Math.random()*width, Math.random()*height, newP, illu2);
-    b2 = new Body(Math.random()*width, Math.random()*height, newp2, illu3);
-    b3 = new Body(Math.random()*width, Math.random()*height, newp3, illu4);
-    b4 = new Body(Math.random()*width, Math.random()*height, newP, illu2);
-    b5 = new Body(Math.random()*width, Math.random()*height, newp2, illu3);
-    b6 = new Body(Math.random()*width, Math.random()*height, newp3, illu4);
-  
-  
-  
+  let canvas = createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+  frameRate(30);
+  // create an engine
+  engine = Engine.create();
+  world = engine.world;
+  num = 1;
+  world.gravity.x = Math.sin(num / 1000) / 100;
+  world.gravity.y = Math.cos(num / 1000) / 100;
+  // Engine.run is deprecated
+  ground = new Boundary(width / 2, height + 50, width, 100);
+  wall1 = new Boundary(-50, height / 2, 100, height);
+  wall2 = new Boundary(width + 50, height / 2, 100, height);
+  ceil = new Boundary(width / 2, 0 - 50, width, 100);
+
+
+  Composite.add(world, ground);
+  Composite.add(world, wall1);
+  Composite.add(world, wall2);
+  Composite.add(world, ceil);
+
+  render = Render.create({
+    element: mat,
+    engine: engine
+  });
+
+  b1 = new Body(Math.random() * width, Math.random() * height, newP, illu2);
+  b2 = new Body(Math.random() * width, Math.random() * height, newp2, illu3);
+  b3 = new Body(Math.random() * width, Math.random() * height, newp3, illu4);
+  b4 = new Body(Math.random() * width, Math.random() * height, newP, illu2);
+  b5 = new Body(Math.random() * width, Math.random() * height, newp2, illu3);
+  b6 = new Body(Math.random() * width, Math.random() * height, newp3, illu4);
+
+
+
   //mouse
   let canvasMouse = Mouse.create(canvas.elt);
   canvasMouse.pixelRatio = pixelDensity();
   let mOptions = {
-    mouse : canvasMouse
+    mouse: canvasMouse
   }
   mConstraint = MouseConstraint.create(engine, mOptions);
   Composite.add(world, mConstraint);
-  
-  
+
+
   //     // create a body with an attractor
   // var attractiveBody = Bodies.circle(
   //     width/2,
@@ -101,31 +103,31 @@ function setup() {
   //       }
   //     });
 
-    // World.add(world, attractiveBody);
-  
+  // World.add(world, attractiveBody);
+
   // console.log(attractiveBody);
-  
+
 }
 
 
 
 function draw() {
   clear()
-  
-    Engine.update(engine);
-    b1.show();
-    b2.show();
-    b3.show();
-      b4.show();
-    b5.show();
-    b6.show();
-    world.gravity.x = Math.sin(num / 700)/60;
-    world.gravity.y = Math.cos(num / 700)/60;
-    num += 1.7;
-    // drawingContext.clip(); // p5clip
-    // image(bg2,0,0,width,height); // p5clip
-    // drawingContext.restore(); // p5clip
-      fill('white');
-    // rect(0,0, width, height);
-    ground.show();
+
+  Engine.update(engine);
+  b1.show();
+  b2.show();
+  b3.show();
+  b4.show();
+  b5.show();
+  b6.show();
+  world.gravity.x = Math.sin(num / 700) / 60;
+  world.gravity.y = Math.cos(num / 700) / 60;
+  num += 1.7;
+  // drawingContext.clip(); // p5clip
+  // image(bg2,0,0,width,height); // p5clip
+  // drawingContext.restore(); // p5clip
+  fill('white');
+  // rect(0,0, width, height);
+  ground.show();
 }

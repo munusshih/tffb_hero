@@ -4,6 +4,10 @@ body {
   padding: 0;
 }
 
+#p5_loading {
+  display: none;
+}
+
 canvas {
   display: block;
   mix-blend-mode: lighten;
